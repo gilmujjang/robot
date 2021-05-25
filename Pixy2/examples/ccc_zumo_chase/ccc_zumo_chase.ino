@@ -1,4 +1,4 @@
-//
+
 // begin license header
 //
 // This file is part of Pixy CMUcam5 or "Pixy" for short
@@ -134,5 +134,3 @@ void loop()
     index = -1; // set search state
   }
 }
-
-
