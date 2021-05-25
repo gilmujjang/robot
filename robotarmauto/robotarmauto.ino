@@ -53,28 +53,6 @@ void loop() {
     }
   }
   char data;
-  if(Serial.available() > 0){
-    data = Serial.read();
-    if(data == 'a'){
-      servo1Pos = 90;
-      servo2Pos = 90;
-      servo4Pos = 180;
-      servo5Pos = 20;
-      Serial.println("잡기");
-    }
-    if(data == 'b'){
-      servo1Pos = 180;
-      servo2Pos = 60;
-      servo4Pos = 150;
-      Serial.println("대기");
-    }
-    if(data == 'c'){
-      servo1Pos = 90;
-      servo2Pos = 90;
-      servo4Pos = 180;
-      servo5Pos = 100;
-      Serial.println("놓기");
-    }
     //motor1 Waist
     if (servo1PPos > servo1Pos) {
       for ( int j = servo1PPos; j >= servo1Pos; j--) {   // Run servo down
@@ -134,6 +112,5 @@ void loop() {
       }
     }
     servo5PPos = servo5Pos;
-  }
-  delay(100);
+  
 }
