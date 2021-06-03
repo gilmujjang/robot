@@ -1,9 +1,9 @@
 #include <PIDLoop.h>
-#include <Pixy2I2C.h>
+#include <Pixy2.h>
 
-#define MAX_TRANSLATE_VELOCITY  150
+#define MAX_TRANSLATE_VELOCITY  200
 
-Pixy2I2C pixy;
+Pixy2 pixy;
 int left1 = 24;
 int left2 = 23;
 int leftspeed = 44;
@@ -29,6 +29,12 @@ void setup(){
 
 void loop(){
   int i;
+  digitalWrite(left1, LOW);
+  digitalWrite(left2, LOW);
+  analogWrite(leftspeed, 0);
+  digitalWrite(right1, LOW);
+  digitalWrite(right2, LOW);
+  analogWrite(rightspeed, 0);
   pixy.ccc.getBlocks();
   Serial.println("loop excute");
   if (pixy.ccc.numBlocks){
@@ -40,24 +46,26 @@ void loop(){
       Serial.print(": ");
       pixy.ccc.blocks[i].print();
     }
-    if(pixy.ccc.blocks[0].m_x > 200){
+    if(pixy.ccc.blocks[0].m_x < 200){
       //좌회전
+      Serial.println("left");
       digitalWrite(left1, LOW);
-      digitalWrite(left2, LOW);
-      analogWrite(leftspeed, 0);
+      digitalWrite(left2, HIGH);
+      analogWrite(leftspeed, 120);
       digitalWrite(right1, HIGH);
       digitalWrite(right2, LOW);
-      analogWrite(rightspeed, 100);
+      analogWrite(rightspeed, 120);
       delay(100);
     }
-    if(pixy.ccc.blocks[0].m_x < 150){
+    if(pixy.ccc.blocks[0].m_x > 240){
       //우회전
+      Serial.println("right");
       digitalWrite(left1, HIGH);
       digitalWrite(left2, LOW);
-      analogWrite(leftspeed, 100);
+      analogWrite(leftspeed, 120);
       digitalWrite(right1, LOW);
-      digitalWrite(right2, LOW);
-      analogWrite(rightspeed, 0);
+      digitalWrite(right2, HIGH);
+      analogWrite(rightspeed, 120);
       delay(100);
     }
 //    라이다로 쟀을떄 멀면 전진
